@@ -3,6 +3,8 @@
 
 using namespace std;
 
-void PrintHelloProgramManager(void) {
+int PrintHelloProgramManager(void) {
 	cout << "Hello Program Manager!" << endl;
+
+	return 1;
 }

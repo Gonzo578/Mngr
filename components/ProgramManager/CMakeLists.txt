@@ -13,7 +13,7 @@ target_include_directories(ProgramManager
 		${CMAKE_CURRENT_SOURCE_DIR}/includes
 )
 
-# Unit test configuration for todo component
-#set(printerTest_SRC test/printerTest.cc)
-#add_gmock_test(printerTest ${printerTest_SRC})
-#target_link_libraries(printerTest printerCore)
+# Unit test configuration for ProgramManager component
+set(ProgramManagerTest_SRC test/ProgramManagerTest.cc)
+add_gmock_test(ProgramManagerTest ${ProgramManagerTest_SRC})
+target_link_libraries(ProgramManagerTest ProgramManager)

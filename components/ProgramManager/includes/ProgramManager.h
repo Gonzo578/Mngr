@@ -1,1 +1,3 @@
-void PrintHelloProgramManager(void);
+#include <cstdint>
+
+int PrintHelloProgramManager(void);
