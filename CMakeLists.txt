@@ -9,7 +9,7 @@ if(" ${CMAKE_SOURCE_DIR}" STREQUAL " ${CMAKE_BINARY_DIR}")
 endif()
 
 # Global project name
-project ("Project Template")
+project ("ProgramManager")
 
 # Add local module path to the cmake modules search path
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
@@ -20,26 +20,21 @@ include(gmock)
 # Testing configuration
 enable_testing()
 
-# Include directories
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/components)
-include_directories(SYSTEM ${Boost_INCLUDE_DIRS}) 
-
 # Add components to projects build
 add_subdirectory(components)
 
-# Project source files
-set (project_SRC
-    src/main.cc
-)
-    
-# Project component libraries
-set (project_comp_LIBS
-    toDoCore
-    printerCore
-)
-
 # Main project target configuration
-add_executable (projTemplate ${project_SRC})
+add_executable (app "")
+
+target_sources (app
+	PRIVATE
+		src/main.cc
+)
 
 # Target link libraries
-target_link_libraries(projTemplate ${project_comp_LIBS} ${Boost_LIBRARIES})
+target_link_libraries(app
+	PRIVATE
+		toDoCore
+		printerCore
+		ProgramManager
+)
