@@ -1,3 +1,16 @@
+//*************************************************************************************************
+//
+//*************************************************************************************************
 #include <cstdint>
+#include <string>
+#include <list>
 
-int PrintHelloProgramManager(void);
+namespace ProgramManager {
+	class ProgramManager {
+	public:
+		ProgramManager();
+		std::list<std::string> GetAvailablePrograms();
+	private:
+		std::list<std::string> AvailablePrograms;
+	};
+}

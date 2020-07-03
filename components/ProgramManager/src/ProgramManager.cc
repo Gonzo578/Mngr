@@ -3,8 +3,14 @@
 
 using namespace std;
 
-int PrintHelloProgramManager(void) {
-	cout << "Hello Program Manager!" << endl;
+namespace ProgramManager {
+	ProgramManager::ProgramManager(void) {
+		AvailablePrograms.push_back("Auto");
+		AvailablePrograms.push_back("Eco");
+		AvailablePrograms.push_back("Super");
+	}
 
-	return 1;
+	std::list<std::string> ProgramManager::GetAvailablePrograms(void) {
+		return AvailablePrograms;
+	}
 }
