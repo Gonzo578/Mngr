@@ -11,27 +11,6 @@ endif()
 # Configure general build options
 option (BUILD_DOXY_DOC "Build doxygen documentation" ON)
 
-# Check if doxygen is installed and if yes configure it
-find_package(Doxygen)
-
-if(DOXYGEN_FOUND)
-	set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
-    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Docs)
-    
-    # request to configure the file
-    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
-    message("Doxygen build started")
-    
-    # note the option ALL which allows to build the docs together with the application
-    add_custom_target( doc_doxygen ALL
-        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generating API documentation with Doxygen"
-        VERBATIM )
-else (DOXYGEN_FOUND)
-  message("Doxygen need to be installed to generate the doxygen documentation")
-endif (DOXYGEN_FOUND)
-
 # Global project name
 project ("ProgramManager")
 
@@ -62,3 +41,21 @@ target_link_libraries(app
 		printerCore
 		ProgramManager
 )
+
+# Check if doxygen is installed and if yes configure it
+find_package(Doxygen)
+
+if(DOXYGEN_FOUND)
+	# exclude external dependencies included in the project from doc generation
+	set(DOXYGEN_EXCLUDE_PATTERNS
+        */external/*
+  	)
+  	
+	doxygen_add_docs(docs
+    	${CMAKE_CURRENT_SOURCE_DIR}
+    	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    	COMMENT "Generating API documentation with Doxygen"
+	)
+else (DOXYGEN_FOUND)
+  message("Doxygen need to be installed to generate the doxygen documentation")
+endif (DOXYGEN_FOUND)
