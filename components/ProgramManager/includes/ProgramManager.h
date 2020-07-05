@@ -1,6 +1,8 @@
 /**
  * @file ProgramManager.h Program Manager API
  * */
+#pragma once
+
 #include <cstdint>
 #include <string>
 #include <list>
