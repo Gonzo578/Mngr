@@ -42,6 +42,11 @@ target_link_libraries(app
 		ProgramManager
 )
 
+#**************************************************************************************************
+#* Doxygen configuration
+#* Add a special target to generate API documentation with doxygen
+#* We use the standard capabilities of CMake to create docs
+#**************************************************************************************************
 # Check if doxygen is installed and if yes configure it
 find_package(Doxygen)
 
