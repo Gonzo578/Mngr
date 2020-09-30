@@ -26,6 +26,12 @@ enable_testing()
 # Add components to projects build
 add_subdirectory(components)
 
+# Add boost to includes
+find_package(Boost REQUIRED system)
+if(Boost_FOUND)
+  include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
 # Main project target configuration
 add_executable (app "")
 
@@ -40,6 +46,7 @@ target_link_libraries(app
 		toDoCore
 		printerCore
 		ProgramManager
+		${Boost_LIBRARIES}
 )
 
 #**************************************************************************************************

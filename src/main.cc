@@ -1,11 +1,17 @@
+#include <boost/asio/io_service.hpp>
+#include <boost/asio/steady_timer.hpp>
+#include <chrono>
 #include <iostream>
-#include <list>
-#include <string>
 
-using namespace std;
+using namespace boost::asio;
 
-int main (int argc, char** argv) {
-	cout << "Hello World!" << endl;
+int main()
+{
+  io_service ioservice;
 
-	return 0;
+  steady_timer timer{ioservice, std::chrono::seconds{3}};
+  timer.async_wait([](const boost::system::error_code &ec)
+    { std::cout << "3 sec\n"; });
+
+  ioservice.run();
 }
