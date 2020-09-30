@@ -2,3 +2,4 @@
 add_subdirectory(ToDo)
 add_subdirectory(printer)
 add_subdirectory(ProgramManager)
+add_subdirectory(ErrorManager)
