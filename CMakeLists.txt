@@ -27,7 +27,7 @@ enable_testing()
 add_subdirectory(components)
 
 # Add boost to includes
-find_package(Boost REQUIRED system)
+find_package(Boost REQUIRED system thread)
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
 endif()
