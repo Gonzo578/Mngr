@@ -1,37 +1,54 @@
-#include <boost/asio/io_service.hpp>
-#include <boost/thread/thread.hpp>
-#include <chrono>
+#include <boost/program_options.hpp>
 #include <iostream>
+#include <string>
 #include <thread>
+#include <chrono>
 
-boost::asio::io_service io_service;
+using namespace boost::program_options;
 
-void WorkerThread()
+void on_age(int age)
 {
-	std::cout << "Thread Start\n";
-	io_service.run();
-	std::cout << "Thread Finish\n";
+  std::cout << "On age: " << age << '\n';
 }
 
-int main( int argc, char * argv[] )
+void on_Name(std::string Name)
 {
-	std::shared_ptr< boost::asio::io_service::work > work(
-		new boost::asio::io_service::work( io_service )
-	);
+  std::cout << "On name: " << Name << '\n';
+}
 
-	std::cout << "Press [return] to exit." << std::endl;
+int main(int argc, const char *argv[])
+{
+  try
+  {
+    options_description desc{"Options"};
+    desc.add_options()
+      ("help,h", "Help screen")
+      ("pi", value<float>()->default_value(3.14f), "Pi")
+      ("age", value<int>()->notifier(on_age), "Age")
+	  ("name", value<std::string>()->notifier(on_Name), "Name")
+	  ("tick_s,t", value<int>()->default_value(1), "Mainloop tick in [s]");
 
-	boost::thread_group worker_threads;
-	for( int x = 0; x < 4; ++x )
-	{
-		worker_threads.create_thread( WorkerThread );
-	}
+    variables_map vm;
+    store(parse_command_line(argc, argv, desc), vm);
+    notify(vm);
 
-	std::cin.get();
+    if (vm.count("help"))
+      std::cout << desc << '\n';
+    else if (vm.count("name") && vm.count("age"))
+      std::cout << "Hallo " << vm["name"].as<std::string>() << ", wie geht es Dir?" << " Du bis " <<vm["age"].as<int>() << " Jahre alt." << '\n';
+    else if (vm.count("age"))
+      std::cout << "Age: " << vm["age"].as<int>() << '\n';
+    else if (vm.count("pi"))
+      std::cout << "Pi: " << vm["pi"].as<float>() << '\n';
 
-	io_service.stop();
+    while(1) {
+    	std::cout << "tick" << '\n';
+    	std::this_thread::sleep_for(std::chrono::seconds(vm["tick_s"].as<int>()));
+    }
 
-	worker_threads.join_all();
-
-	return 0;
+  }
+  catch (const error &ex)
+  {
+    std::cerr << ex.what() << '\n';
+  }
 }
