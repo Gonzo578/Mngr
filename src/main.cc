@@ -11,7 +11,7 @@ using namespace boost::program_options;
 
 void to_cout(const std::vector<int> &v) {
   std::copy(v.begin(), v.end(), std::ostream_iterator<int>{
-    std::cout, "\n"});
+    std::cout});
 }
 
 int main(int argc, const char *argv[])
@@ -23,12 +23,14 @@ int main(int argc, const char *argv[])
     generalOptions.add_options()
       ("help,h", "Help screen")
 	  ("nodes,n", value<std::vector<int>>()->multitoken()->composing(), "List of node addresses")
-	  ("config", value<std::string>(), "Config file")
+	  ("update,u", "Do update")
+	  ("inventory,i", "Do inventory")
+	  ("config,c", value<std::string>(), "Config file")
 	  ("tick_s,t", value<int>(&tick)->default_value(1), "Mainloop tick in [s]");
 
     options_description fileOptions{"File"};
     fileOptions.add_options()
-    	("comspeed", value<int>(), "Communication speed");
+    	("comspeed", value<int>()->default_value(9600), "Communication speed");
 
     variables_map vm;
     store(parse_command_line(argc, argv, generalOptions), vm);
@@ -47,6 +49,15 @@ int main(int argc, const char *argv[])
 
     if(vm.count("nodes")) {
     	to_cout(vm["nodes"].as<std::vector<int>>());
+    }
+
+    // update and inventory exclude each other
+    if (vm.count("update")){
+       	std::cout << "Do update" << '\n';
+      	return 0;
+    } else if (vm.count("inventory")){
+        std::cout << "Do inventory" << '\n';
+        return 0;
     }
 
     if(vm.count("comspeed")) {
