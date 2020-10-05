@@ -18,18 +18,18 @@ int main(int argc, const char *argv[])
 	int tick;
   try
   {
-    options_description desc{"Options"};
-    desc.add_options()
+    options_description generalOptions{"Options"};
+    generalOptions.add_options()
       ("help,h", "Help screen")
 	  ("nodes,n", value<std::vector<int>>()->multitoken()->composing(), "List of node addresses")
 	  ("tick_s,t", value<int>(&tick)->default_value(1), "Mainloop tick in [s]");
 
     variables_map vm;
-    store(parse_command_line(argc, argv, desc), vm);
+    store(parse_command_line(argc, argv, generalOptions), vm);
     notify(vm);
 
     if (vm.count("help")){
-    	std::cout << desc << '\n';
+    	std::cout << generalOptions << '\n';
     	return 0;
     }
 
