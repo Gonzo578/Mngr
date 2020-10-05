@@ -1,5 +1,6 @@
 #include <boost/program_options.hpp>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <algorithm>
 #include <string>
@@ -22,10 +23,21 @@ int main(int argc, const char *argv[])
     generalOptions.add_options()
       ("help,h", "Help screen")
 	  ("nodes,n", value<std::vector<int>>()->multitoken()->composing(), "List of node addresses")
+	  ("config", value<std::string>(), "Config file")
 	  ("tick_s,t", value<int>(&tick)->default_value(1), "Mainloop tick in [s]");
+
+    options_description fileOptions{"File"};
+    fileOptions.add_options()
+    	("comspeed", value<int>(), "Communication speed");
 
     variables_map vm;
     store(parse_command_line(argc, argv, generalOptions), vm);
+    if (vm.count("config")) {
+    	std::ifstream ifs{vm["config"].as<std::string>().c_str()};
+        if (ifs)
+        	store(parse_config_file(ifs, fileOptions), vm);
+    }
+
     notify(vm);
 
     if (vm.count("help")){
@@ -35,6 +47,10 @@ int main(int argc, const char *argv[])
 
     if(vm.count("nodes")) {
     	to_cout(vm["nodes"].as<std::vector<int>>());
+    }
+
+    if(vm.count("comspeed")) {
+    	std::cout << "Communication speed: " << vm["comspeed"].as<int>() << '\n';
     }
 
     while(1) {
