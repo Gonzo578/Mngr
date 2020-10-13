@@ -26,6 +26,7 @@ int main(int argc, const char *argv[])
 	  ("update,u", "Do update")
 	  ("inventory,i", "Do inventory")
 	  ("config,c", value<std::string>(), "Config file")
+	  ("devpath,p", value<std::string>(), "Device path")
 	  ("tick_s,t", value<int>(&tick)->default_value(1), "Mainloop tick in [s]");
 
     options_description fileOptions{"File"};

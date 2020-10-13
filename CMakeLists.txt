@@ -32,20 +32,34 @@ if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-# Main project target configuration
-add_executable (app "")
+# Application server target configuration
+add_executable (app_srv "")
 
-target_sources (app
+target_sources (app_srv
 	PRIVATE
-		src/main.cc
+		server/main.cc
 )
 
 # Target link libraries
-target_link_libraries(app
+target_link_libraries(app_srv
 	PRIVATE
 		toDoCore
 		printerCore
 		ProgramManager
+		${Boost_LIBRARIES}
+)
+
+# Application client target configuration
+add_executable (app_cli "")
+
+target_sources (app_cli
+	PRIVATE
+		client/main.cc
+)
+
+# Target link libraries
+target_link_libraries(app_cli
+	PRIVATE
 		${Boost_LIBRARIES}
 )
 
