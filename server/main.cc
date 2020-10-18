@@ -6,7 +6,6 @@
 #include <string>
 #include <thread>
 #include <chrono>
-#include "stdio.h"
 #include <sys/un.h>
 #include <sys/socket.h>
 
