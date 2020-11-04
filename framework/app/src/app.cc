@@ -1,5 +1,15 @@
+#include "app.h"						// Include own header first as it needs to compile in isolation
+#include <boost/program_options.hpp> 	// Include boost::program_options in order to parse cmd line
 #include <iostream>
 
-void printHello(void) {
-	std::cout << "Hello" << '\n';
+Application::Application(void) {
+	name_ = std::string{};
+}
+
+void Application::parseCmdLineOptions(int argc, const char *argv[]) {
+
+}
+
+void Application::run(void) {
+
 }
