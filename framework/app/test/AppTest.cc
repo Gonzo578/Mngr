@@ -10,6 +10,8 @@ using ::testing::Test;
  * 	\brief	Test fixture
  */
 class appTest : public Test {
+public:
+	Application	TestApp;		// test application instance
 protected:
 	appTest(){}
 	~appTest(){}
@@ -19,7 +21,7 @@ protected:
 };
 
 TEST_F (appTest, AppStoresName) {
-	auto str1 = std::string{"Hallo"};
-	auto str2= std::string{"Hallo"};
-	EXPECT_STREQ(str1.c_str(),str2.c_str());
+	auto ExpAppName = std::string{"MyApp"};
+	auto AppName	= TestApp.getAppName();
+	EXPECT_STREQ(ExpAppName.c_str(), AppName.c_str());
 }

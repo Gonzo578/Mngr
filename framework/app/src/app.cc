@@ -3,7 +3,7 @@
 #include <iostream>
 
 Application::Application(void) {
-	name_ = std::string{};
+	name_ = std::string{"MyApp"};	//std::string{};
 }
 
 void Application::parseCmdLineOptions(int argc, const char *argv[]) {
@@ -12,4 +12,8 @@ void Application::parseCmdLineOptions(int argc, const char *argv[]) {
 
 void Application::run(void) {
 
+}
+
+std::string Application::getAppName(void) {
+	return name_;
 }

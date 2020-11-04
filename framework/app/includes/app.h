@@ -24,6 +24,11 @@ public:
 	 * */
 	void run(void);
 
+	/**
+	 * 	\brief Function returns the name of the application
+	 * */
+	std::string getAppName(void);
+
 private:
 	std::string	name_;			//< Application name
 };
