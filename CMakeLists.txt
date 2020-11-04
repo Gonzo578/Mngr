@@ -25,6 +25,7 @@ enable_testing()
 
 # Add components to projects build
 add_subdirectory(components)
+add_subdirectory(framework)
 
 # Add boost to includes
 find_package(Boost REQUIRED program_options)
