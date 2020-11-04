@@ -20,7 +20,7 @@ public:
 	/**
 	 * 	\brief	Application run method
 	 *
-	 * 			This method runs the applications event loop and typically never returns
+	 * 			This method runs git the applications event loop and typically never returns
 	 * */
 	void run(void);
 
