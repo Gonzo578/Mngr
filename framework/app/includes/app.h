@@ -3,6 +3,11 @@
 #include <string>
 
 /**
+ * 	\brief	Application framework namespace
+ * */
+namespace framework {
+
+/**
  * 	\brief The application class
  * */
 class Application {
@@ -32,3 +37,5 @@ public:
 private:
 	std::string	name_;			//< Application name
 };
+
+} // namespace framework

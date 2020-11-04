@@ -6,6 +6,8 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
+using namespace framework;
+
 /***
  * 	\brief	Test fixture
  */

@@ -4,6 +4,8 @@
 
 using namespace boost::program_options;
 
+namespace framework {
+
 Application::Application(void) {
 	name_ = std::string{};
 }
@@ -37,3 +39,5 @@ void Application::run(void) {
 std::string Application::getAppName(void) {
 	return name_;
 }
+
+} // namespace Framework
