@@ -20,8 +20,38 @@ protected:
 	virtual void TearDown(){}
 };
 
-TEST_F (appTest, AppStoresName) {
+TEST_F (appTest, AppStoresPassedAppNameDefault) {
+	// build command line for testing
+	const char 	*argv[] = {"./AppTest"};
+	int 		argc	= (int)(sizeof(argv)/sizeof(const char 	*));
+
 	auto ExpAppName = std::string{"MyApp"};
+	TestApp.parseCmdLineOptions(argc, argv);
 	auto AppName	= TestApp.getAppName();
+
+	EXPECT_STREQ(ExpAppName.c_str(), AppName.c_str());
+}
+
+TEST_F (appTest, AppStoresPassedAppNameLongArg) {
+	// build command line for testing
+	const char 	*argv[] = {"./AppTest", "--name", "MySuperLongApp"};
+	int 		argc	= (int)(sizeof(argv)/sizeof(const char 	*));
+
+	auto ExpAppName = std::string{"MySuperLongApp"};
+	TestApp.parseCmdLineOptions(argc, argv);
+	auto AppName	= TestApp.getAppName();
+
+	EXPECT_STREQ(ExpAppName.c_str(), AppName.c_str());
+}
+
+TEST_F (appTest, AppStoresPassedAppNameShortArg) {
+	// build command line for testing
+	const char 	*argv[] = {"./AppTest", "-n", "MyShortApp"};
+	int 		argc	= (int)(sizeof(argv)/sizeof(const char 	*));
+
+	auto ExpAppName = std::string{"MyShortApp"};
+	TestApp.parseCmdLineOptions(argc, argv);
+	auto AppName	= TestApp.getAppName();
+
 	EXPECT_STREQ(ExpAppName.c_str(), AppName.c_str());
 }

@@ -79,6 +79,7 @@ int main(int argc, const char *argv[])
 
 		if(vm.count("devpath")) {
 			std::cout << "Device Path: " << vm["devpath"].as<std::string>() << '\n';
+			std::cout << argv[1] << '\n';
 		}
 	}
 	catch (const error &ex)
