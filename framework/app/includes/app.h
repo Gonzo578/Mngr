@@ -34,8 +34,24 @@ public:
 	 * */
 	std::string getAppName(void);
 
+	/**
+	 * 	\brief Function returns the name of the application
+	 * */
+	std::string getRootNodePath(void);
+
+	/**
+	 * 	\brief Function returns the name of the ECU node
+	 * */
+	std::string getNodeName(void);
+
 private:
 	std::string	name_;			//< Application name
+	std::string	rootNodePath_;	//< Path of the application root node
+	std::string	nodeName_;		//< ECU node name
+
+	void buildDeviceTree(void);
+	bool isDeviceTreeRootNodeCreated(void);
+	void createDeviceTreeRootNode(void);
 };
 
 } // namespace framework

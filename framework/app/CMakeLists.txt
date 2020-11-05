@@ -23,6 +23,11 @@ target_link_libraries(App
 		${Boost_LIBRARIES}
 )
 
+target_compile_features(App
+	PRIVATE
+		cxx_std_17
+)
+
 # Unit test configuration for Application component
 set(AppTest_SRC test/AppTest.cc)
 add_gmock_test(AppTest ${AppTest_SRC})
